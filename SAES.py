@@ -1,7 +1,15 @@
+from bitstring import *
+import binascii
 #http://ict.siit.tu.ac.th/~sgordon/reports/simplified-aes-example.pdf
 
 plaintext = bin(1101011100101000)
 key = "0100101011110101"
+
+
+def keysplitter():
+    word0 = key[:8]
+    word1 = key[8:]
+    return word0, word1
 
 def binaryxor(binaryone, binarytwo):
     a = "0"
@@ -31,13 +39,13 @@ def sbox(binaryone):
     elif strbinary == "1000":
         binaryoutput = "0010"
     elif strbinary == "1001":
-        binaryoutput = "0000"
+        binaryoutput = "0010"
     elif strbinary == "1010":
-        binaryoutput = "0011"
+        binaryoutput = "0000"
     elif strbinary == "1011":
-        binaryoutput = "1100"
+        binaryoutput = "0011"
     elif strbinary == "1100":
-        binaryoutput = "1110"
+        binaryoutput = "1100"
     elif strbinary == "1101":
         binaryoutput = "1110"
     elif strbinary == "1110":
@@ -47,8 +55,39 @@ def sbox(binaryone):
     else:
         print "s-boxes are rekt"
     return binaryoutput
+
+
+#binaryone = "1001"
+#result = sbox(binaryone)
+
+#print result
+def rotnib():
+    #swap the parts around
+    wordzero, wordone = keysplitter()
+#    print wordone
+    print wordone
+    wordonenibbleone = wordone[:4]
+    wordonenibbletwo = wordone[4:]
+    rotnib = wordonenibbletwo + wordonenibbleone
+    print "rotnib"
+    print rotnib
+    return rotnib
 def wordgenerator():
-    sbox()
+    introtnib = rotnib()
+    print "introtnib"
+ #   introtnib = "'" + introtnib + "'"
+    print introtnib
+    print "a.bin"
+    ##
+#    a = BitArray(bin=introtnib)
+#    print a.bin
+    print "binaryrotnib"
+    binaryrotnib = bin(int(binascii.hexlify(introtnib), 16))
+#    subnibvar = sbox()
+#    wordtwo = word0 xor bin(10000000) xor
+#    sbox()
+
+wordgenerator()
 
 def keygenerator():
     keysplitter()
@@ -57,19 +96,29 @@ def keygenerator():
     nibblerotator()
     return subkeya, subkeyb, subkeyc
 
-binaryxor()
+#binaryxor()
 
-def keysplitter():
-    word0 = key[:8]
-    word1 = key[8:]
-    print word0
-    print word1
-    return word0, word1
 
-keysplitter()
+rotnib()
 
 def nibblerotator():
     return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def encrypter():
     addroundkey()
     mainround()
