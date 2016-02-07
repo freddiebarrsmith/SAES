@@ -1,6 +1,10 @@
 from bitstring import *
 import binascii
 #http://ict.siit.tu.ac.th/~sgordon/reports/simplified-aes-example.pdf
+###converting string to binary
+####     print "binaryrotnib:"
+ #   binaryrotnib = bin(int((introtnib), 2))
+ #   print binaryrotnib
 
 plaintext = bin(1101011100101000)
 key = "0100101011110101"
@@ -19,6 +23,11 @@ def binaryxor(binaryone, binarytwo):
 #http://www.nku.edu/~christensen/2015%20JMM%20SAES.pdf - page 2
 #hacky af but this is for fun and i don't understand s-boxes yet
 def sbox(binaryone):
+    binaryone = str(binaryone)
+    binaryonestripped = binaryone.replace("b", "")
+    print "binaryone"
+    print binaryonestripped
+    binaryoutput = 0
     strbinary = str(binaryone)
     if strbinary == "0000":
         binaryoutput = "1001"
@@ -72,17 +81,25 @@ def rotnib():
     print "rotnib"
     print rotnib
     return rotnib
+
+
 def wordgenerator():
     introtnib = rotnib()
     print "introtnib"
  #   introtnib = "'" + introtnib + "'"
-    print introtnib
-    print "a.bin"
+  #  print introtnib
+  #  print "a.bin"
     ##
 #    a = BitArray(bin=introtnib)
 #    print a.bin
-    print "binaryrotnib"
-    binaryrotnib = bin(int(binascii.hexlify(introtnib), 16))
+
+    subnibvar1 = sbox(introtnib[:4])
+    subnibvar2 = sbox(introtnib[4:])
+    print "subnib output"
+    print subnibvar1
+    print subnibvar2
+    binarywordzero = bin(int((introtnib), 2))
+
 #    subnibvar = sbox()
 #    wordtwo = word0 xor bin(10000000) xor
 #    sbox()
